@@ -1,29 +1,24 @@
-const headerButtonLeft = document.querySelector(".left")
-const headerButtonRight = document.querySelector(".right")
-const headerBackground = document.querySelector(".header")
-const headerTitle = document.querySelector(".header-title")
+const headerButtonPrev = document.querySelector(".left")
+const headerButtonNext = document.querySelector(".right")
 
+const listBanners = document.querySelectorAll("#banner-top > div")
+let index = 0
 
-headerButtonLeft.addEventListener("click", () => {
-    headerBackground.style.backgroundImage = "url(images/bg2.jpg)"
-   // headerBackground.classList.add("hidden")
-    headerTitle.classList.add("hidden")
-    setTimeout(()=>{
-        headerTitle.classList.remove("hidden")
-        headerTitle.innerText = "ГРЯЗНЫЕ\nПОМЕЩЕНИЯ"
-        //headerBackground.classList.remove("hidden")
-    },400)
-})
+headerButtonNext.addEventListener('click', function() {
+    index = (index + 1) % listBanners.length
+    updateSelection()
+  })
 
-headerButtonRight.addEventListener("click", () => {
-    headerBackground.style.backgroundImage = "url(images/bg3.jpg)"
-    //headerBackground.classList.add("hidden")
-    headerTitle.classList.add("hidden")
-    setTimeout(()=>{
-        //headerBackground.classList.remove("hidden")
-        headerTitle.classList.remove("hidden")
-        headerTitle.innerText = "ЧИСТЫЕ\nПОМЕЩЕНИЯ"
-    },400)
-})
+headerButtonPrev.addEventListener('click', function() {
+    index = (index + listBanners.length - 1) % listBanners.length 
+    updateSelection()
+  })  
 
+function updateSelection() {
+    let active = document.querySelector('#banner-top > div.active') 
+    
+    if( active ) active.classList.remove('active')
+    
+    listBanners[index].classList.add('active')
+  }
 
