@@ -4,29 +4,26 @@
     font-weight: normal;
     font-style: normal;
     font-display: swap;
-    }
+}
 
-body{
+body {
     margin: 0;
     font-family: 'Raleway', sans-serif;
     font-size: 20px;
     color: black;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
 }
 
 .container {
-    margin: auto;
-
-    
+    margin: auto;   
 }
 
 .header {
-    background-image: url(../images/bg.jpg);
+    /*background-image: url(../images/bg.jpg);*/
     height: 100vh;
     background-repeat: no-repeat;
-    background-size: cover;
-        
+    background-size: cover;        
 }
 
 .nav {
@@ -34,15 +31,14 @@ body{
     align-items: baseline;
     margin: auto 250px;
     margin-right: 0px;
-    
+    z-index: 10;
 }
 
 .header-line {
     width: auto;
     height: 70px;
     display: flex;
-    margin: auto;
-    
+    margin: auto;    
 }
 
 .nav-item {
@@ -67,21 +63,24 @@ body{
     color: white;
     margin: auto;
     margin-left: 80px;
-    
+    z-index: 10;
 }
 
 .button {
-    margin: auto; 
+    margin: auto;
+    z-index: 10; 
 }
 
 .button-RU-lang {
     margin: auto 0px;
-    margin-right: 10px; 
+    margin-right: 10px;
+    z-index: 10; 
 }
 
 .button-EN-lang {
     margin: auto 0px;
     margin-right: 40px; 
+    z-index: 10;
 }
 
 .button-item {
@@ -99,8 +98,7 @@ body{
     font-family: Raleway;
     font-weight: 500;
     font-size: 12px;
-    color: white;
-     
+    color: white;    
     text-decoration: none;
     background-color: #0c176d;
     padding: 12px 7px;
@@ -111,8 +109,7 @@ body{
     font-family: Raleway;
     font-weight: 500;
     font-size: 12px;
-    color: #fe2b24;
-     
+    color: #fe2b24;     
     text-decoration: none;
 }
 
@@ -150,7 +147,7 @@ body{
 }
 
 .header-logo {
-    margin-top: 64px;
+    margin-top: 135px;
     margin-left: 250px;
 }
 
@@ -160,7 +157,7 @@ body{
     letter-spacing: 6px;
     font-size: 55px;
     font-weight: 100;
-    color: #ffffff;
+    color: #ffffff;   
 }
 
 .header-title_2 {
@@ -175,8 +172,10 @@ body{
 
 .header-arrow {
     display: flex;
-    padding-top: 130px;
-    margin-left: 330px;
+    padding-top: 244px;
+    margin-left: 1057px;
+    position: absolute;
+    z-index: 10;
 }
 
 .right {
@@ -196,23 +195,27 @@ body{
 
 .hta {
     display: flex;
+    justify-content: space-between;
+}
+
+.arrow-subscription {
+    margin: 155px 236px 0 0;
 }
 
 .subscription-1 {
-    color: black; 
-    margin: 40px 0px 20px 330px;
+    color: black;     
     font-weight: 600; 
     border-bottom: 1px solid #ff2820
 }
 
 .subscription-2 {
-    color: black;  
-    margin: 0px 0px 0px 330px;
+    color: black;     
 }
 
 .left:hover {
     background-color: #aa1913;
 }
+
 .right:hover {
     background-color: #aa1913;
 }
@@ -226,13 +229,11 @@ body{
     background-color: #ffffff;
     width: 187px;
     height: 247px;
-    
+    z-index: 10;
     border: 2px solid #e3eeef;
     display: flex;
     flex-direction: column;
 }
-
-
 
 .cards {
     width: auto;
@@ -243,7 +244,6 @@ body{
 .card-image {
     margin: auto;
 }
-
 
 .card-title {
     text-align: center;
@@ -256,7 +256,7 @@ body{
     font-weight: 700;
     color: #ffffff;
     font-size: 14px;
-    margin-top: 130px;  
+    margin-top: 166px;  
     margin-left: 250px;  
 }
 
@@ -269,16 +269,13 @@ body{
     text-decoration: underline #ff2820;  
 }
 
-
-
 .separating {
     height: 3px;
     margin-top: 150px;
     margin-bottom: 50px;
     margin-left: 147px;
     width: 121px;
-    background-color: red;
-    
+    background-color: red;    
 }
 
 .menu-title {
@@ -302,24 +299,23 @@ body{
     justify-content: space-between;
 }
 
-.men-but1, .men-but2 {
-    
+.men-but1, .men-but2 {   
     height: 125px;
     border: 1px solid #e4eeef;
     display: flex;
 }
 
-.men-but1:hover, .men-but2:hover{
+.men-but1:hover, .men-but2:hover {
     border: 1px solid #ff2820;
     transition: 0.5s linear;
 }
 
-.men-but2:hover .menu-txt{
+.men-but2:hover .menu-txt {
     text-decoration: underline #ff2820;
     transition: 0.5s linear;
 }
 
-.men-but1:hover .menu-txt{
+.men-but1:hover .menu-txt {
     text-decoration: underline #ff2820;
     transition: 0.5s linear;
 }
@@ -327,8 +323,7 @@ body{
 .menu-button1, .menu-button2 {
     display: flex;
     flex-direction: column;
-    width: 50%;
-    
+    width: 50%;   
 }
 
 .menu-title {
@@ -337,13 +332,13 @@ body{
 }
 
 .menu-txt {
- font-weight: 600;
- font-size: 16px;
- width: 150px;
- margin: auto;
- text-align: left;
- text-decoration: underline #e3eeef;
- color: black;
+    font-weight: 600;
+    font-size: 16px;
+    width: 150px;
+    margin: auto;
+    text-align: left;
+    text-decoration: underline #e3eeef;
+    color: black;
 }
 
 .menu-img {
@@ -356,11 +351,10 @@ body{
 }
 
 .picture {
-    width: 600px;
-    
-    
+    width: 600px;    
 }
- .picture2 {
+
+.picture2 {
     margin-top: 132px;
     margin-left: 275px;
     position: absolute;
@@ -378,22 +372,21 @@ body{
     font-size: 20px;
 }
 
-.container-3{
+.container-3 {
     height: 650px;
     display: flex;
+    overflow: hidden;
 }
 
 .gallery {
     height: 600px;
     margin: auto;
-    display: flex;
-    
+    display: flex;    
 }
 
 .gal {
     display: flex;
-    margin-left: -1258px;
-    
+    margin-left: -1258px;    
 }
 
 .images {
@@ -416,8 +409,7 @@ body{
 .karus-title {
     font-size: 35px;
     line-height: 1.5; 
-    margin-left: 147px; 
-    
+    margin-left: 147px;     
 }
 
 .karus-arrow {
@@ -430,8 +422,7 @@ body{
 
 .karus-button {
     font-family: "FuturaPT";
-    font-size: 12px;
-    
+    font-size: 12px;    
     border: 1px solid #ff2820;
     padding: 5px 10px 5px 20px;
     border-radius: 30px;
@@ -449,11 +440,11 @@ body{
     text-decoration: none;
 }
 
-.karus-button:hover .namebtn{
-    
+.karus-button:hover .namebtn {    
     color: #ffffff;
     transition: 0.3s linear;
 }
+
 .karus-button:hover {
     background-color: #ff2820;
     transition: 0.3s linear;
@@ -469,8 +460,7 @@ body{
 }
 
 .container-4 {
-    max-width: 1332px;
-   
+    max-width: 1332px;   
     margin: auto;
 }
 
@@ -484,7 +474,6 @@ body{
     margin-left: 50px;
     font-family:"FuturaPT";
     font-size: 20px;
-
 }
 
 .separating1 {
@@ -493,13 +482,13 @@ body{
     margin-bottom: 50px;
     margin-left: 50px;
     width: 121px;
-    background-color: red;
-    
+    background-color: red;   
 }
 
 .comp-image {
     margin-top: 97px;
 }
+
 .comp-header {
     display: flex;
 }
@@ -508,7 +497,6 @@ body{
     margin-top: 1px;
     display: flex;
 }
-
 
 .comp-buttons1, .comp-buttons2, .comp-buttons3 {
     width: 33%;
@@ -656,6 +644,7 @@ body{
 
 .blog-contant {
     margin-top: 100px;
+    overflow: hidden;
 }
 
 .blog-contant-header {
@@ -669,12 +658,9 @@ body{
     margin-left: 50px;
 }
 
-
 .blog-contant-header-buttons {
     display: flex;
 }
-
-
 
 .blog-contant-header-buttons-right {
     margin: auto;
@@ -711,6 +697,7 @@ body{
     background-color: #a61712;
     transition: 0.3s linear;
 }
+
 .blog-contant-header-buttons-left:hover {
     background-color: #a61712;
     transition: 0.3s linear;
@@ -723,8 +710,7 @@ body{
 }
 
 .blog-contant-body-unit {
-    margin-right: 20px;
-    
+    margin-right: 20px;   
     display: flex;
     flex-direction: column;
 }
@@ -760,8 +746,6 @@ body{
     transition: 0.3s linear;
 }
 
-
-
 .xz2:hover .blog-imag-desc {
     text-decoration: underline #ff2820;
 }
@@ -775,8 +759,8 @@ body{
 }
 
 .blog-futter {
-display: flex;
-margin-left: 50px;
+    display: flex;
+    margin-left: 50px;
 }
 
 .fut1 {
@@ -784,15 +768,13 @@ margin-left: 50px;
     border-right: 3px solid #e4eeef;
     display: flex;
     flex-direction: column;
-    height: 260px;
-  
+    height: 260px; 
 }
 
 .fut1-desc {
-   margin-top: 103px; 
-   font-weight: 500;
-   font-size: 20px;
-    
+    margin-top: 103px; 
+    font-weight: 500;
+    font-size: 20px;    
 }
 
 .fut1-desc2 {
@@ -821,10 +803,10 @@ margin-left: 50px;
 }
 
 .fut2-desc-uslug {
-   margin-left: 25px;
-   font-size: 14px;
-   color: #e8403a;
-   font-weight: 500;
+    margin-left: 25px;
+    font-size: 14px;
+    color: #e8403a;
+    font-weight: 500;
 }
 
 .fut2-desc-kons {
@@ -941,17 +923,15 @@ margin-left: 50px;
 .polevvoda {
     width: 295px; 
     height: 60px;
-    padding: 0;
-    
+    padding: 0;  
     border: none;
 }
 
 .polevvoda-block {
     display: flex;
-    height: 64px;
-    
-    
+    height: 64px;   
 }
+
 .polevvoda-but {
     background-color: #e8403a;
     width: 60px;
@@ -960,9 +940,9 @@ margin-left: 50px;
 }
 
 .polevvoda-ico {
-    margin: auto;
-    
+    margin: auto;    
 }
+
 /* стилизация placeholder */
 ::-webkit-input-placeholder {
     color:#000000;
@@ -975,28 +955,28 @@ margin-left: 50px;
     color: #ffffff;
     font-size: 16px;
     margin-top: 10px;
- }
+}
 
- .polevvoda-but:hover {
+.polevvoda-but:hover {
     background-color: #9b0e09;
- }
+}
      
- .futter-futter {
+.futter-futter {
     display: flex;
     height: 105px;
     border: 1px solid #303335;
- }
+}
 
- .ff-section {
+.ff-section {
     display: flex;
     margin: auto;
     width: 33.3333%;
     align-items: center;
     justify-content: center;
     height: 40px;
- }
+}
 
- .ff-section-center {
+.ff-section-center {
     display: flex;
     margin: auto;
     width: 33.3333%;
@@ -1005,15 +985,61 @@ margin-left: 50px;
     height: 40px;
     border-left: 1px solid #303335;
     border-right: 1px solid #303335;
- }
+}
 
- .section-text {
+.section-text {
     font-family: "FuturaPT";
     font-size: 15px;
     color: #cacacb;
     width: 186px;
- }
+}
 
- .ff-ico {
+.ff-ico {
     margin: 20px;
+}
+
+.hidden {
+    opacity: 0;
+    transition: 0.3s linear;
+}
+
+div[data-bannerid="1"] {
+    opacity: 0;
+    position: absolute;
+    background-image: url(../images/bg.jpg);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    width: 100vw;
+    margin-top: -70px;    
+}
+
+div[data-bannerid="2"] {
+    opacity: 0;
+    position: absolute;
+    background-image: url(../images/bg2.jpg);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    width: 100vw;
+    margin-top: -70px;
+}
+
+div[data-bannerid="3"] {
+    opacity: 0;
+    position: absolute;
+    background-image: url(../images/bg3.jpg);
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    width: 100vw;
+    margin-top: -70px;
+}
+
+#banner-top div.active { 
+    opacity: 100;
+    transition: 0.5s linear; 
 }
