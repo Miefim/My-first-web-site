@@ -289,6 +289,12 @@ body {
 
 .video {
     width: 600px;
+    opacity: 0; 
+    position: absolute;
+}
+
+.video-contant {
+    width: 600px;
     margin-top: 207px;
 }
 
@@ -296,7 +302,7 @@ body {
     display: flex;
     max-width: 1332px;
     margin: auto;
-    justify-content: space-between;
+    justify-content: space-between;    
 }
 
 .men-but1, .men-but2 {   
@@ -999,7 +1005,7 @@ body {
 }
 
 .hidden {
-    opacity: 0;
+    opacity: 100;
     transition: 0.3s linear;
 }
 
@@ -1042,4 +1048,17 @@ div[data-bannerid="3"] {
 #banner-top div.active { 
     opacity: 100;
     transition: 0.5s linear; 
+}
+
+.video-contant div.active { 
+    opacity: 100;
+    transition: 0.5s linear; 
+}
+
+.menu-button1 div.active {
+    border: 1px solid #ff2820;
+}
+
+.menu-button2 div.active {
+    border: 1px solid #ff2820;
 }
