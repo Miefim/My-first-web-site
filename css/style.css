@@ -703,16 +703,21 @@ body {
     transition: 0.3s linear;
 }
 
-.blog-contant-body {
-    margin-left: 50px;
-    margin-top: 20px;
+.window-blog {
+    margin: 30px 0px 0px 100px;
+    overflow: hidden;
     display: flex;
 }
 
+.blog-contant-body {
+    display: flex;
+    transform: translate3d(0px, 0px, 0px);
+}
+
 .blog-contant-body-unit {
-    margin-right: 20px;   
     display: flex;
     flex-direction: column;
+    width: 430px;
 }
 
 .blog-imag-desc {
