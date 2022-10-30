@@ -685,11 +685,11 @@ body {
 .blog-contant-header-buttons-left-imag {
     transform: rotate(-180deg);
     margin: auto;
-    height: 17px;
+    height: 12px;
 }
 
 .blog-contant-header-buttons-right-imag {
-    height: 17px;
+    height: 12px;
     margin: auto;
 }
 
@@ -712,6 +712,7 @@ body {
 .blog-contant-body {
     display: flex;
     transform: translate3d(0px, 0px, 0px);
+    transition: 0.5s linear;
 }
 
 .blog-contant-body-unit {
