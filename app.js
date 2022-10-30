@@ -21,6 +21,44 @@ function updateSelection() {
     };
 };
 
+const buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
+const buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
+const widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
+const arrayBlog = document.querySelectorAll('.blog-contant-body-unit');
+const numberPicturesScreen = 3;
+let indexBlog = 0;
+const maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
+
+buttonBlogRight.addEventListener('click',() => {
+  if(indexBlog < maxIndexBlog) {
+    indexBlog++
+  };
+  if (indexBlog > maxIndexBlog) {
+    indexBlog = maxIndexBlog
+  };
+    moveBlogRight(indexBlog)
+});
+
+buttonBlogLeft.addEventListener('click',() => {
+  if(indexBlog > 0) {
+    indexBlog--
+  };
+  if(indexBlog < 0) {
+    indexBlog = 0
+  };
+    moveBlogLeft(indexBlog);
+});
+
+function moveBlogRight(indexBlog) {
+  let transf = indexBlog * (widthBlog * 3);
+  document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+};
+
+function moveBlogLeft(indexBlog) {
+  let transf = indexBlog * (widthBlog * 3);
+  document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+};
+
 const competencyButtonArray = document.querySelectorAll('.comp-button');
 competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
   const id = e.currentTarget.dataset.butId;
