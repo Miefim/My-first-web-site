@@ -21,8 +21,11 @@ function updateSelection() {
     };
 };
 
-const competencyButtonArray = document.querySelectorAll('.comp-button')
-console.log(competencyButtonArray)
-competencyButtonArray.forEach((button) => button.addEventListener('click', (e) => {
-  console.log(e.currentTarget.dataset)
-}))
+const competencyButtonArray = document.querySelectorAll('.comp-button');
+competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
+  const id = e.currentTarget.dataset.butId;
+   if(document.querySelector('.comp-button1 > .active').dataset.contId !== id) {
+    document.querySelector('.comp-button1 > .active').classList.remove('active');
+    document.querySelector(`[data-cont-id="${id}"]`).classList.add('active');
+   };
+}));
