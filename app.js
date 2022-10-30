@@ -20,3 +20,9 @@ function updateSelection() {
       listBanners[index].classList.add('active');
     };
 };
+
+const competencyButtonArray = document.querySelectorAll('.comp-button')
+console.log(competencyButtonArray)
+competencyButtonArray.forEach((button) => button.addEventListener('click', (e) => {
+  console.log(e.currentTarget.dataset)
+}))
