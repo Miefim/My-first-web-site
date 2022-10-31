@@ -517,11 +517,11 @@ body {
 }
 
 .comp-buttons-text {
-    margin: auto;
     font-weight: 600;
     color: #e3eeef;
     text-decoration: none;
     font-size: 20px;
+    margin: auto;
 }
 
 .comp-buttons-text1 {
@@ -531,6 +531,13 @@ body {
     color: #000000;
     text-decoration: none;
     font-size: 17px;
+}
+
+.compitence-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    display: none;
 }
 
 .comp-button:hover {
@@ -548,9 +555,6 @@ body {
     background-color: #fe2b24;
     height: 15px;
     width: 12px;
-    position: absolute;
-    margin-left: 68.775px;
-    margin-top: 51px;
     transform: rotate(-90deg);
     padding: 9px;
     border-radius: 20px;
@@ -1048,4 +1052,8 @@ div[data-bannerid="3"] {
 #banner-top div.active { 
     opacity: 100;
     transition: 0.5s linear; 
+}
+
+.comp-button1 div.active { 
+    display: block;
 }

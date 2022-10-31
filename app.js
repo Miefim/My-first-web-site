@@ -58,3 +58,12 @@ function moveBlogLeft(indexBlog) {
   let transf = indexBlog * (widthBlog * 3);
   document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
 };
+
+const competencyButtonArray = document.querySelectorAll('.comp-button');
+competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
+  const id = e.currentTarget.dataset.butId;
+   if(document.querySelector('.comp-button1 > .active').dataset.contId !== id) {
+    document.querySelector('.comp-button1 > .active').classList.remove('active');
+    document.querySelector(`[data-cont-id="${id}"]`).classList.add('active');
+   };
+}));
