@@ -68,97 +68,106 @@ competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (
    };
 }));
 
-const callbackButton = document.querySelector(".button-item");
-const closeButton = document.querySelector(".button-close");
-const orderButton = document.querySelector(".order-text");
-const closeButton2 = document.querySelector(".close-button");
-let flagNumber = 0;
-let flagName = 0;
+const myCallbackForm = {
+  flagNumber: 0,
+  flagName: 0,
+  callbackButton: null, 
+  closeButton: null,
+  orderButton: null,
+  closeButton2: null,
 
-callbackButton.addEventListener("click", () => {
-  document.querySelector('.warning-number').innerText = "";
-  document.querySelector('.warning-name').innerText = "";
-  document.querySelector('[data-inputid = "number"]').value = "";
-  document.querySelector('[data-inputid = "name"]').value = "";
-  document.querySelector(".feedback-form").classList.add("active-feedback");
-  document.querySelector(".form-feetback-content").classList.add("active-feedback");
-  document.querySelector("body").classList.add("no-scrolle");
-});
+  init: () => {
+    this.callbackButton = document.querySelector(".button-item");
+    this.closeButton = document.querySelector(".button-close");
+    this.orderButton = document.querySelector(".order-text");
+    this.closeButton2 = document.querySelector(".close-button");
 
-closeButton.addEventListener("click", () => {
-  document.querySelector(".feedback-form").classList.remove("active-feedback");
-  document.querySelector("body").classList.remove("no-scrolle");
-  document.querySelector(".ok").classList.remove("active-feedback");
-});
+    callbackButton.addEventListener("click", () => {
+        document.querySelector('.warning-number').innerText = "";
+        document.querySelector('.warning-name').innerText = "";
+        document.querySelector('[data-inputid = "number"]').value = "";
+        document.querySelector('[data-inputid = "name"]').value = "";
+        document.querySelector(".feedback-form").classList.add("active-feedback");
+        document.querySelector(".form-feedback-content").classList.add("active-feedback");
+        document.querySelector("body").classList.add("no-scroll");
+    });
 
-orderButton.addEventListener("click", () => {  
-  numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''));
-  nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''));
+    closeButton.addEventListener("click", () => {
+        document.querySelector(".feedback-form").classList.remove("active-feedback");
+        document.querySelector("body").classList.remove("no-scroll");
+        document.querySelector(".ok").classList.remove("active-feedback");
+    });
 
-  if(flagNumber === 0 && flagName === 0) {
-    document.querySelector(".form-feetback-content").classList.remove("active-feedback");
-    document.querySelector(".ok").classList.add("active-feedback");
-    alert(`
-    Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, '')}
-    Ваш телефон : ${document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, '')}`);
-  }
-  else {
-    return;
-  }; 
-});
+    orderButton.addEventListener("click", () => {  
+        myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''));
+        myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''));
+    
+      if(flagNumber === 0 && flagName === 0) {
+        document.querySelector(".form-feedback-content").classList.remove("active-feedback");
+        document.querySelector(".ok").classList.add("active-feedback");
+        alert(`
+        Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, '')}
+        Ваш телефон : ${document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, '')}`);
+      }
+      else {
+        return;
+      }; 
+    });
 
-closeButton2.addEventListener("click", () => {
-  document.querySelector(".feedback-form").classList.remove("active-feedback");
-  document.querySelector("body").classList.remove("no-scrolle");
-  document.querySelector(".ok").classList.remove("active-feedback");
-});
+    closeButton2.addEventListener("click", () => {
+        document.querySelector(".feedback-form").classList.remove("active-feedback");
+        document.querySelector("body").classList.remove("no-scroll");
+        document.querySelector(".ok").classList.remove("active-feedback");
+    });
+  },
 
-function numberCheck(number) {
-  if(number === "") {
-    document.querySelector('.warning-number').innerText = "Введите номер";
-    flagNumber = 1;
-  }
-  else{
-    const numberForCallbackArray = number.split('');
-    for(index in numberForCallbackArray) {
-      if(numberForCallbackArray.length < 11) {
+  numberCheck: (number) => {
+    if(!number) {
+      document.querySelector('.warning-number').innerText = "Введите номер";
+      flagNumber = 1;
+    }
+    else{
+      if(number.length < 11) {
         document.querySelector('.warning-number').innerText = "Номер должен быть длиннее";
         flagNumber = 1;
       }
-      else if(numberForCallbackArray.length > 13) {
+      else if (number.length > 13) {
         document.querySelector('.warning-number').innerText = "Слишком длинный номер";
         flagNumber = 1;
       }
-      else if(numberForCallbackArray[index] >= 0 || numberForCallbackArray[index] === "+") {
-        flagNumber = 0;
-        document.querySelector('.warning-number').innerText = "";
-      }
       else {
-        document.querySelector('.warning-number').innerText = "В данном поле должны быть только цифры";
-        flagNumber = 1;
+        for(index in number) { 
+          if(number[index] >= 0 || number[index] === "+") {
+            flagNumber = 0;
+            document.querySelector('.warning-number').innerText = "";
+          }
+          else {
+            document.querySelector('.warning-number').innerText = "В данном поле должны быть только цифры";
+            flagNumber = 1;
+          };
+        };
       };
     };
-  }; 
+  },
+
+  nameCheck: (name) => {
+    if(!name && document.querySelector('[data-inputid = "name"]').value) {
+      document.querySelector('.warning-name').innerText = "В данном поле должны быть только буквы";
+      flagName = 1;
+    }
+    else if (!name) {
+      document.querySelector('.warning-name').innerText = "Введите свое имя";
+      flagName = 1;
+    }
+    else if (name.length < 2) {
+      document.querySelector('.warning-name').innerText = "Имя слишком короткое";
+      flagName = 1;
+    }
+    else {
+      flagName = 0;
+      document.querySelector('.warning-name').innerText = "";
+    };
+  }
 };
 
-function nameCheck(name) {
-  if(name === "" && document.querySelector('[data-inputid = "name"]').value !== "") {
-    document.querySelector('.warning-name').innerText = "В данном поле должны быть только буквы";
-    flagName = 1;
-  }
-  else if (name === "") {
-    document.querySelector('.warning-name').innerText = "Введите свое имя";
-    flagName = 1;
-  }
-  else if (name.length < 2) {
-    document.querySelector('.warning-name').innerText = "Имя слишком короткое";
-    flagName = 1;
-  }
-  else {
-    flagName = 0;
-    document.querySelector('.warning-name').innerText = "";
-  };
-};
-
-
-
+myCallbackForm.init();

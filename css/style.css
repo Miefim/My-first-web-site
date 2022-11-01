@@ -1144,7 +1144,7 @@ div[data-bannerid="3"] {
     cursor: pointer;
 }
 
-.form-feetback-content {
+.form-feedback-content {
     display: none;
     flex-direction: column;
 }
@@ -1175,7 +1175,7 @@ div[data-bannerid="3"] {
     display: flex;
 }
 
-.no-scrolle {
+.no-scroll {
     overflow: hidden;
 }
 
