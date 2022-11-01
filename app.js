@@ -99,7 +99,7 @@ orderButton.addEventListener("click", () => {
     document.querySelector(".form-feetback-content").classList.remove("active-feedback");
     document.querySelector(".ok").classList.add("active-feedback");
     alert(`
-    Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/\s+/g, '')}
+    Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, '')}
     Ваш телефон : ${document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, '')}`);
   }
   else {
