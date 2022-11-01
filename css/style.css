@@ -12,7 +12,7 @@ body {
     font-size: 20px;
     color: black;
     display: flex;
-    flex-direction: column;    
+    flex-direction: column; 
 }
 
 .container {
@@ -144,6 +144,7 @@ body {
 .button-item:hover {
     background-color: #fe2b24;
     color:#ffffff;
+    cursor: pointer;
 }
 
 .header-logo {
@@ -935,6 +936,7 @@ body {
     height: 60px;
     padding: 0;  
     border: none;
+    padding-left: 20px;
 }
 
 .polevvoda-block {
@@ -956,7 +958,6 @@ body {
 /* стилизация placeholder */
 ::-webkit-input-placeholder {
     color:#000000;
-    padding-left: 20px;
     font-family: "FuturaPT";
 }
 
@@ -1056,4 +1057,138 @@ div[data-bannerid="3"] {
 
 .comp-button1 div.active { 
     display: block;
+}
+
+.feedback-form {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    z-index: 100;
+    display: none;
+}
+
+.form {
+    background-color: #ffffff;
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    z-index: 1000;
+    border-radius: 10px;    
+}
+
+.header-feedback {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #d11a14;
+}
+
+.text-feedback {
+    font-size: 30px;
+    margin-left: 70px;
+}
+
+.button-close {
+    width: 51px;
+    height: 46px;
+    display: flex;
+}
+
+.close-img {
+    margin: auto;
+}
+
+.close-img:hover {
+    width: 35px;
+    cursor: pointer;
+}
+
+.feedback {
+    border: 2px solid #b2b2b2;
+    width: 456px;
+    color:#000000;
+    padding-left: 20px;
+    font-family: "FuturaPT"; 
+    font-size: 20px; 
+}
+
+.feedback:focus::placeholder {
+    opacity: 50%;
+}
+
+.form-cont-email {
+    margin: 0 auto;
+}
+
+.form-cont-tel {
+    margin: 15px auto 20px auto;
+}
+
+.order-text {
+    background-color: #ffff;
+    padding: 15px 45px;
+    margin: 40px auto;
+    color: #d11a14;
+    border: 2px solid #d11a14;
+}
+
+.order-button {
+    display: flex;
+}
+
+.order-text:hover {
+    background-color: #d11a14;
+    color: #ffffff;
+    transition: 0.3s linear;
+    cursor: pointer;
+}
+
+.form-feetback-content {
+    display: none;
+    flex-direction: column;
+}
+
+.ok {
+    display: none;
+    flex-direction: column;
+}
+
+.form-cont-ok {
+    display: flex;
+    align-items: center;
+    margin-top: 12px;
+    margin-bottom: -26px
+}
+
+.ok-text {
+    margin: 0;
+    width: 425px;
+}
+
+.ok-img {
+    padding: 20px;
+    margin: 0px 30px;
+}
+
+.active-feedback {
+    display: flex;
+}
+
+.no-scrolle {
+    overflow: hidden;
+}
+
+.warning-number {
+    margin: 274px 64px;
+    position: absolute;
+    color: #d11a14;
+    font-weight: 500;
+}
+
+.warning-name {
+    margin: 132px 64px;
+    position: absolute;
+    color: #d11a14;
+    font-weight: 500;
 }
