@@ -21,6 +21,18 @@ function updateSelection() {
     };
 };
 
+const contractButtonArray = document.querySelectorAll('.xz > div > .butt');
+contractButtonArray.forEach((button) => button.addEventListener('click', (e) => {
+  const idContract = e.currentTarget.dataset.butid;
+  const nowActiveContentBlock = document.querySelector(".video-contant > .active")
+    if(nowActiveContentBlock.dataset.contid !== idContract) {
+      nowActiveContentBlock.classList.remove('active');
+      document.querySelector('.xz > div > .active').classList.remove('active');
+      document.querySelector(`[data-butid="${idContract}"]`).classList.add('active');
+      document.querySelector(`[data-contid="${idContract}"]`).classList.add('active');
+    };
+ }));
+
 const buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
 const buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
 const widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
