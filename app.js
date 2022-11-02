@@ -68,7 +68,7 @@ competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (
    };
 }));
 
-const myCallbackForm = {
+const myFeedbackForm = {
 
   myVariable: {
     flagNumber: 1,
@@ -190,4 +190,4 @@ const myCallbackForm = {
   },
 };
 
-myCallbackForm.setEvents();
+myFeedbackForm.setEvents();
