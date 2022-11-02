@@ -69,8 +69,8 @@ competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (
 }));
 
 const myCallbackForm = {
-  flagNumber: 0,
-  flagName: 0,
+  flagNumber: null,
+  flagName: null,
   callbackButton: null, 
   closeButton: null,
   orderButton: null,
@@ -81,8 +81,20 @@ const myCallbackForm = {
     this.closeButton = document.querySelector(".button-close");
     this.orderButton = document.querySelector(".order-text");
     this.closeButton2 = document.querySelector(".close-button");
+    this.flagNumber = 1;
+    this.flagName = 1;
+
+    document.querySelector('[data-inputid = "number"]').oninput = () => {
+        myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''))
+    }
+
+    document.querySelector('[data-inputid = "name"]').oninput = () => {
+        myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''))
+    }
 
     callbackButton.addEventListener("click", () => {
+        flagNumber = 1;
+        flagName = 1;
         document.querySelector('.warning-number').innerText = "";
         document.querySelector('.warning-name').innerText = "";
         document.querySelector('[data-inputid = "number"]').value = "";
@@ -99,8 +111,8 @@ const myCallbackForm = {
     });
 
     orderButton.addEventListener("click", () => {  
-        myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''));
-        myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''));
+        // myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''));
+        // myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''));
     
       if(flagNumber === 0 && flagName === 0) {
         document.querySelector(".form-feedback-content").classList.remove("active-feedback");
@@ -109,8 +121,9 @@ const myCallbackForm = {
         Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, '')}
         Ваш телефон : ${document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, '')}`);
       }
-      else {
-        return;
+      else if (!document.querySelector('[data-inputid = "number"]').value || !document.querySelector('[data-inputid = "name"]').value) {
+        document.querySelector('.warning-number').innerText = "Введите номер";
+        document.querySelector('.warning-name').innerText = "Введите свое имя";
       }; 
     });
 
