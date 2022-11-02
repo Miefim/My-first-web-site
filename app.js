@@ -69,118 +69,125 @@ competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (
 }));
 
 const myCallbackForm = {
-  flagNumber: null,
-  flagName: null,
-  callbackButton: null, 
-  closeButton: null,
-  orderButton: null,
-  closeButton2: null,
 
-  init: () => {
-    this.callbackButton = document.querySelector(".button-item");
-    this.closeButton = document.querySelector(".button-close");
-    this.orderButton = document.querySelector(".order-text");
-    this.closeButton2 = document.querySelector(".close-button");
-    this.flagNumber = 1;
-    this.flagName = 1;
+  myVariable: {
+    flagNumber: 1,
+    flagName: 1,
+    callbackButton: document.querySelector(".button-item"),
+    closeButton: document.querySelector(".button-close"),
+    orderButton: document.querySelector(".order-text"),
+    closeButton2: document.querySelector(".close-button"),
+    warningNumber: document.querySelector('.warning-number'),
+    warningName: document.querySelector('.warning-name'),
+    callbackForm: document.querySelector(".feedback-form"),
+    callbackContentInput: document.querySelector(".form-feedback-content"),
+    callbackContentOrder: document.querySelector(".ok"),
+    body: document.querySelector("body"),
+    inputNumber: document.querySelector('[data-inputid = "number"]'),
+    inputName: document.querySelector('[data-inputid = "name"]')
+  },
 
-    document.querySelector('[data-inputid = "number"]').oninput = () => {
-        myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''))
+  setEvents () {
+    this.myVariable.inputNumber.oninput = () => {
+      this.numberCheck(this.myVariable.inputNumber.value.replace(/\s+/g, ''))
     }
 
-    document.querySelector('[data-inputid = "name"]').oninput = () => {
-        myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''))
+    this.myVariable.inputName.oninput = () => {
+      this.nameCheck(this.myVariable.inputName.value.replace(/[^a-zа-яё]/gi, ''))
     }
 
-    callbackButton.addEventListener("click", () => {
-        flagNumber = 1;
-        flagName = 1;
-        document.querySelector('.warning-number').innerText = "";
-        document.querySelector('.warning-name').innerText = "";
-        document.querySelector('[data-inputid = "number"]').value = "";
-        document.querySelector('[data-inputid = "name"]').value = "";
-        document.querySelector(".feedback-form").classList.add("active-feedback");
-        document.querySelector(".form-feedback-content").classList.add("active-feedback");
-        document.querySelector("body").classList.add("no-scroll");
+    this.myVariable.callbackButton.addEventListener("click", () => {
+      this.myVariable.flagNumber = 1;
+      this.myVariable.flagName = 1;
+      this.myVariable.warningNumber.innerText = "";
+      this.myVariable.warningName.innerText = "";
+      this.myVariable.inputNumber.value = "";
+      this.myVariable.inputName.value = "";
+      this.myVariable.callbackForm.classList.add("active-feedback");
+      this.myVariable.callbackContentInput.classList.add("active-feedback");
+      this.myVariable.body.classList.add("no-scroll");
     });
 
-    closeButton.addEventListener("click", () => {
-        document.querySelector(".feedback-form").classList.remove("active-feedback");
-        document.querySelector("body").classList.remove("no-scroll");
-        document.querySelector(".ok").classList.remove("active-feedback");
+    this.myVariable.closeButton.addEventListener("click", () => {
+      this.myVariable.callbackForm.classList.remove("active-feedback");
+      this.myVariable.body.classList.remove("no-scroll");
+      this.myVariable.callbackContentOrder.classList.remove("active-feedback");
     });
 
-    orderButton.addEventListener("click", () => {  
-        // myCallbackForm.numberCheck(document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, ''));
-        // myCallbackForm.nameCheck(document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, ''));
-    
-      if(flagNumber === 0 && flagName === 0) {
-        document.querySelector(".form-feedback-content").classList.remove("active-feedback");
-        document.querySelector(".ok").classList.add("active-feedback");
+    this.myVariable.orderButton.addEventListener("click", () => {     
+      if(this.myVariable.flagNumber === 0 && this.myVariable.flagName === 0) {
+        this.myVariable.callbackContentInput.classList.remove("active-feedback");
+        this.myVariable.callbackContentOrder.classList.add("active-feedback");
         alert(`
-        Ваше имя: ${document.querySelector('[data-inputid = "name"]').value.replace(/[^a-zа-яё]/gi, '')}
-        Ваш телефон : ${document.querySelector('[data-inputid = "number"]').value.replace(/\s+/g, '')}`);
+        Ваше имя: ${this.myVariable.inputName.value.replace(/[^a-zа-яё]/gi, '')}
+        Ваш телефон : ${this.myVariable.inputNumber.value.replace(/\s+/g, '')}`);
       }
-      else if (!document.querySelector('[data-inputid = "number"]').value || !document.querySelector('[data-inputid = "name"]').value) {
-        document.querySelector('.warning-number').innerText = "Введите номер";
-        document.querySelector('.warning-name').innerText = "Введите свое имя";
+      else if (!this.myVariable.inputNumber.value && !this.myVariable.inputName.value) {
+        this.myVariable.warningNumber.innerText = "Введите номер";
+        this.myVariable.warningName.innerText = "Введите свое имя";
+      } 
+      else if (!this.myVariable.inputNumber.value) {
+        this.myVariable.warningNumber.innerText = "Введите номер";
+      } 
+      else if (!this.myVariable.inputName.value) {
+        this.myVariable.warningName.innerText = "Введите свое имя";
       }; 
     });
 
-    closeButton2.addEventListener("click", () => {
-        document.querySelector(".feedback-form").classList.remove("active-feedback");
-        document.querySelector("body").classList.remove("no-scroll");
-        document.querySelector(".ok").classList.remove("active-feedback");
+    this.myVariable.closeButton2.addEventListener("click", () => {
+      this.myVariable.callbackForm.classList.remove("active-feedback");
+      this.myVariable.body.classList.remove("no-scroll");
+      this.myVariable.callbackContentOrder.classList.remove("active-feedback");
     });
   },
 
-  numberCheck: (number) => {
+  numberCheck (number) {
     if(!number) {
-      document.querySelector('.warning-number').innerText = "Введите номер";
-      flagNumber = 1;
+      this.myVariable.warningNumber.innerText = "Введите номер";
+      this.myVariable.flagNumber = 1;
     }
     else{
       if(number.length < 11) {
-        document.querySelector('.warning-number').innerText = "Номер должен быть длиннее";
-        flagNumber = 1;
+        this.myVariable.warningNumber.innerText = "Номер должен быть длиннее";
+        this.myVariable.flagNumber = 1;
       }
       else if (number.length > 13) {
-        document.querySelector('.warning-number').innerText = "Слишком длинный номер";
-        flagNumber = 1;
+        this.myVariable.warningNumber.innerText = "Слишком длинный номер";
+        this.myVariable.flagNumber = 1;
       }
       else {
         for(index in number) { 
           if(number[index] >= 0 || number[index] === "+") {
-            flagNumber = 0;
-            document.querySelector('.warning-number').innerText = "";
+            this.myVariable.flagNumber = 0;
+            this.myVariable.warningNumber.innerText = "";
           }
           else {
-            document.querySelector('.warning-number').innerText = "В данном поле должны быть только цифры";
-            flagNumber = 1;
+            this.myVariable.warningNumber.innerText = "В данном поле должны быть только цифры";
+            this.myVariable.flagNumber = 1;
           };
         };
       };
     };
   },
-
-  nameCheck: (name) => {
-    if(!name && document.querySelector('[data-inputid = "name"]').value) {
-      document.querySelector('.warning-name').innerText = "В данном поле должны быть только буквы";
-      flagName = 1;
+  
+  nameCheck (name) {
+    if(!name && this.myVariable.inputName.value) {
+      this.myVariable.warningName.innerText = "В данном поле должны быть только буквы";
+      this.myVariable.flagName = 1;
     }
     else if (!name) {
-      document.querySelector('.warning-name').innerText = "Введите свое имя";
-      flagName = 1;
+      this.myVariable.warningName.innerText = "Введите свое имя";
+      this.myVariable.flagName = 1;
     }
     else if (name.length < 2) {
-      document.querySelector('.warning-name').innerText = "Имя слишком короткое";
-      flagName = 1;
+      this.myVariable.warningName.innerText = "Имя слишком короткое";
+      this.myVariable.flagName = 1;
     }
     else {
-      flagName = 0;
-      document.querySelector('.warning-name').innerText = "";
+      this.myVariable.flagName = 0;
+      this.myVariable.warningName.innerText = "";
     };
-  }
+  },
 };
 
-myCallbackForm.init();
+myCallbackForm.setEvents();
