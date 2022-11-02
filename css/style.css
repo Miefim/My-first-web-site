@@ -523,11 +523,11 @@ body {
 }
 
 .comp-buttons-text {
-    margin: auto;
     font-weight: 600;
     color: #e3eeef;
     text-decoration: none;
     font-size: 20px;
+    margin: auto;
 }
 
 .comp-buttons-text1 {
@@ -537,6 +537,13 @@ body {
     color: #000000;
     text-decoration: none;
     font-size: 17px;
+}
+
+.compitence-content {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    display: none;
 }
 
 .comp-button:hover {
@@ -554,9 +561,6 @@ body {
     background-color: #fe2b24;
     height: 15px;
     width: 12px;
-    position: absolute;
-    margin-left: 68.775px;
-    margin-top: 51px;
     transform: rotate(-90deg);
     padding: 9px;
     border-radius: 20px;
@@ -691,11 +695,11 @@ body {
 .blog-contant-header-buttons-left-imag {
     transform: rotate(-180deg);
     margin: auto;
-    height: 17px;
+    height: 12px;
 }
 
 .blog-contant-header-buttons-right-imag {
-    height: 17px;
+    height: 12px;
     margin: auto;
 }
 
@@ -709,16 +713,22 @@ body {
     transition: 0.3s linear;
 }
 
-.blog-contant-body {
-    margin-left: 50px;
-    margin-top: 20px;
+.window-blog {
+    margin: 30px 0px 0px 100px;
+    overflow: hidden;
     display: flex;
 }
 
+.blog-contant-body {
+    display: flex;
+    transform: translate3d(0px, 0px, 0px);
+    transition: 0.5s linear;
+}
+
 .blog-contant-body-unit {
-    margin-right: 20px;   
     display: flex;
     flex-direction: column;
+    width: 430px;
 }
 
 .blog-imag-desc {
@@ -1061,4 +1071,8 @@ div[data-bannerid="3"] {
 
 .menu-button2 div.active {
     border: 1px solid #ff2820;
+}
+
+.comp-button1 div.active { 
+    display: block;
 }
