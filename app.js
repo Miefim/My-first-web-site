@@ -208,22 +208,22 @@ const myProjectSlider = {
 
   indexProject: 0,
   tapeTransformation: 0,
-  push: 0,
-  dif: 0,
+  mouseDown: 0,
+  swipeLength: 0,
   galleryTape: document.querySelector('.gallery'),
   imageArray: document.querySelectorAll('.gal'),
   imageWidth: document.querySelector('.gal').clientWidth,
 
   myEvent () {
-    this.galleryTape.addEventListener('mousedown', this.swipeStart.bind(this))  
-    this.galleryTape.addEventListener('mouseup', this.swipeEnd.bind(this))
+    start = myProjectSlider.swipeStart.bind(myProjectSlider)
+    move = myProjectSlider.swipeMove.bind(myProjectSlider)
+    end = myProjectSlider.swipeEnd.bind(myProjectSlider)
+    this.galleryTape.addEventListener('mousedown', start)  
+    this.galleryTape.addEventListener('mouseup', end)
   },
 
   switchLeft () {
-    if(this.indexProject === 0) {
-      //indexProject = imageArray.length - 1
-    }
-    else{
+    if(this.indexProject !== 0) {
       this.indexProject--
     }
     this.tapeTransformation = this.indexProject * this.imageWidth
@@ -231,10 +231,7 @@ const myProjectSlider = {
   },
 
   switchRight () {
-    if(this.indexProject === this.imageArray.length - 1) {
-      // indexProject = 0
-     }
-     else{
+    if(this.indexProject !== this.imageArray.length - 1) {
       this.indexProject++
      }
      this.tapeTransformation = this.indexProject * this.imageWidth
@@ -242,14 +239,13 @@ const myProjectSlider = {
   },
 
   swipeStart () {
-    this.push = event.clientX
-    this.galleryTape.addEventListener('mousemove', this.swipeMove.bind(this))
+    this.mouseDown = event.clientX
+    this.galleryTape.addEventListener('mousemove', move)
   },
 
   swipeMove () {
     this.galleryTape.style.transition = 'none'
-    this.swipeShift = this.push - event.clientX
-    
+    this.swipeShift = this.mouseDown - event.clientX  
     if(this.indexProject === this.imageArray.length - 1) {
       if(this.swipeShift > 0) {
         this.swipeShift = Math.log(this.swipeShift)
@@ -264,16 +260,15 @@ const myProjectSlider = {
   },
 
   swipeEnd () {
-    this.galleryTape.removeEventListener('mousemove', this.swipeMove)
+    this.galleryTape.removeEventListener('mousemove', move)
     this.galleryTape.style.transition = '0.3s' 
-    this.dif = this.push - event.clientX
-
-    if(this.dif > 0) {
+    this.swipeLength = this.mouseDown - event.clientX
+    if(this.swipeLength > 0) {
       this.switchRight()       
     }
-    else if (this.dif < 0) { 
+    else if (this.swipeLength < 0) { 
       this.switchLeft()
-    }
+    } 
   },
 }
 
