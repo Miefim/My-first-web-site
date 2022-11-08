@@ -205,76 +205,74 @@ const myFeedbackForm = {
 myFeedbackForm.setEvents();
 
 const myProjectSlider = {
-  myVaiables: {
-    indexProject: 0,
-    tapeTransformation: 0,
-    push: 0,
-    galleryTape: document.querySelector('.gallery'),
-    imageArray: document.querySelectorAll('.gal'),
-    imageWidth: document.querySelector('.gal').clientWidth,
-    dif: 0
-  },
+
+  indexProject: 0,
+  tapeTransformation: 0,
+  push: 0,
+  dif: 0,
+  galleryTape: document.querySelector('.gallery'),
+  imageArray: document.querySelectorAll('.gal'),
+  imageWidth: document.querySelector('.gal').clientWidth,
 
   myEvent () {
-    myProjectSlider.myVaiables.galleryTape.addEventListener('mousedown', myProjectSlider.swipeStart)
+    this.galleryTape.addEventListener('mousedown', this.swipeStart.bind(this))  
+    this.galleryTape.addEventListener('mouseup', this.swipeEnd.bind(this))
   },
 
   switchLeft () {
-    if(myProjectSlider.myVaiables.indexProject === 0) {
+    if(this.indexProject === 0) {
       //indexProject = imageArray.length - 1
     }
     else{
-      myProjectSlider.myVaiables.indexProject--
+      this.indexProject--
     }
-    myProjectSlider.myVaiables.tapeTransformation = myProjectSlider.myVaiables.indexProject * myProjectSlider.myVaiables.imageWidth
-    myProjectSlider.myVaiables.galleryTape.style.transform = `translate3d(-${myProjectSlider.myVaiables.tapeTransformation}px, 0px, 0px)`
+    this.tapeTransformation = this.indexProject * this.imageWidth
+    this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
   },
 
   switchRight () {
-    if(myProjectSlider.myVaiables.indexProject === myProjectSlider.myVaiables.imageArray.length - 1) {
+    if(this.indexProject === this.imageArray.length - 1) {
       // indexProject = 0
      }
      else{
-      myProjectSlider.myVaiables.indexProject++
+      this.indexProject++
      }
-     myProjectSlider.myVaiables.tapeTransformation = myProjectSlider.myVaiables.indexProject * myProjectSlider.myVaiables.imageWidth
-     myProjectSlider.myVaiables.galleryTape.style.transform = `translate3d(-${myProjectSlider.myVaiables.tapeTransformation}px, 0px, 0px)`
+     this.tapeTransformation = this.indexProject * this.imageWidth
+     this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
   },
 
-  swipeStart () { 
-    myProjectSlider.myVaiables.push = event.clientX
-    myProjectSlider.myVaiables.galleryTape.addEventListener('mousemove', myProjectSlider.swipeMove) 
-    myProjectSlider.myVaiables.galleryTape.addEventListener('mouseup', myProjectSlider.swipeEnd)
+  swipeStart () {
+    this.push = event.clientX
+    this.galleryTape.addEventListener('mousemove', this.swipeMove.bind(this))
   },
 
   swipeMove () {
-    myProjectSlider.myVaiables.galleryTape.style.transition = 'none'
-    myProjectSlider.myVaiables.swipeShift = myProjectSlider.myVaiables.push - event.clientX
+    this.galleryTape.style.transition = 'none'
+    this.swipeShift = this.push - event.clientX
     
-    if(myProjectSlider.myVaiables.indexProject === myProjectSlider.myVaiables.imageArray.length - 1) {
-      if(myProjectSlider.myVaiables.swipeShift > 0) {
-        myProjectSlider.myVaiables.swipeShift = Math.log(myProjectSlider.myVaiables.swipeShift)
+    if(this.indexProject === this.imageArray.length - 1) {
+      if(this.swipeShift > 0) {
+        this.swipeShift = Math.log(this.swipeShift)
       }
     }
-    else if(myProjectSlider.myVaiables.indexProject === 0) {
-      if(myProjectSlider.myVaiables.swipeShift < 0) {
-        myProjectSlider.myVaiables.swipeShift = -Math.log(Math.abs(myProjectSlider.myVaiables.swipeShift))
+    else if(this.indexProject === 0) {
+      if(this.swipeShift < 0) {
+        this.swipeShift = -Math.log(Math.abs(this.swipeShift))
       } 
     }
-    myProjectSlider.myVaiables.galleryTape.style.transform = `translate3d(${-myProjectSlider.myVaiables.tapeTransformation - myProjectSlider.myVaiables.swipeShift}px, 0px, 0px)`
+    this.galleryTape.style.transform = `translate3d(${-this.tapeTransformation - this.swipeShift}px, 0px, 0px)`
   },
 
   swipeEnd () {
-    myProjectSlider.myVaiables.galleryTape.removeEventListener('mousemove', myProjectSlider.swipeMove)
-    myProjectSlider.myVaiables.galleryTape.style.transition = '0.3s' 
-    myProjectSlider.myVaiables.dif = myProjectSlider.myVaiables.push - event.clientX
+    this.galleryTape.removeEventListener('mousemove', this.swipeMove)
+    this.galleryTape.style.transition = '0.3s' 
+    this.dif = this.push - event.clientX
 
-  
-      if(myProjectSlider.myVaiables.dif > 0) {
-        myProjectSlider.switchRight()
+    if(this.dif > 0) {
+      this.switchRight()       
     }
-    else if (myProjectSlider.myVaiables.dif < 0) { 
-      myProjectSlider.switchLeft()
+    else if (this.dif < 0) { 
+      this.switchLeft()
     }
   },
 }
