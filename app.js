@@ -203,3 +203,73 @@ const myFeedbackForm = {
 };
 
 myFeedbackForm.setEvents();
+
+const myProjectSlider = {
+
+  indexProject: 0,
+  tapeTransformation: 0,
+  mouseDown: 0,
+  swipeLength: 0,
+  galleryTape: document.querySelector('.gallery'),
+  imageArray: document.querySelectorAll('.gal'),
+  imageWidth: document.querySelector('.gal').clientWidth,
+
+  myEvent () {
+    start = myProjectSlider.swipeStart.bind(myProjectSlider)
+    move = myProjectSlider.swipeMove.bind(myProjectSlider)
+    end = myProjectSlider.swipeEnd.bind(myProjectSlider)
+    this.galleryTape.addEventListener('mousedown', start)  
+    this.galleryTape.addEventListener('mouseup', end)
+  },
+
+  switchLeft () {
+    if(this.indexProject !== 0) {
+      this.indexProject--
+    }
+    this.tapeTransformation = this.indexProject * this.imageWidth
+    this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
+  },
+
+  switchRight () {
+    if(this.indexProject !== this.imageArray.length - 1) {
+      this.indexProject++
+     }
+     this.tapeTransformation = this.indexProject * this.imageWidth
+     this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
+  },
+
+  swipeStart () {
+    this.mouseDown = event.clientX
+    this.galleryTape.addEventListener('mousemove', move)
+  },
+
+  swipeMove () {
+    this.galleryTape.style.transition = 'none'
+    this.swipeShift = this.mouseDown - event.clientX  
+    if(this.indexProject === this.imageArray.length - 1) {
+      if(this.swipeShift > 0) {
+        this.swipeShift = Math.log(this.swipeShift)
+      }
+    }
+    else if(this.indexProject === 0) {
+      if(this.swipeShift < 0) {
+        this.swipeShift = -Math.log(Math.abs(this.swipeShift))
+      } 
+    }
+    this.galleryTape.style.transform = `translate3d(${-this.tapeTransformation - this.swipeShift}px, 0px, 0px)`
+  },
+
+  swipeEnd () {
+    this.galleryTape.removeEventListener('mousemove', move)
+    this.galleryTape.style.transition = '0.3s' 
+    this.swipeLength = this.mouseDown - event.clientX
+    if(this.swipeLength > 0) {
+      this.switchRight()       
+    }
+    else if (this.swipeLength < 0) { 
+      this.switchLeft()
+    } 
+  },
+}
+
+myProjectSlider.myEvent()

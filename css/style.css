@@ -380,20 +380,24 @@ body {
 }
 
 .container-3 {
-    height: 650px;
+    z-index: 100;
     display: flex;
     overflow: hidden;
 }
 
 .gallery {
-    height: 600px;
+    z-index: 100;
     margin: auto;
-    display: flex;    
+    display: flex; 
+    transform: translate3d(0px, 0px, 0px);  
+    transition: 0.3s;
 }
 
 .gal {
     display: flex;
-    margin-left: -1258px;    
+    width: 100vw;
+    pointer-events: none;
+    user-select: none;   
 }
 
 .images {
@@ -402,8 +406,9 @@ body {
 }
 
 .img-karus {
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: auto;
+    pointer-events: none;
+    user-select: none;
 }
 
 .karus-header {
