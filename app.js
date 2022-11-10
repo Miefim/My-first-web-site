@@ -33,43 +33,59 @@ contractButtonArray.forEach((button) => button.addEventListener('click', (e) => 
     };
  }));
 
-const buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
-const buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
-const widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
-const arrayBlog = document.querySelectorAll('.blog-contant-body-unit');
-const numberPicturesScreen = 3;
-let indexBlog = 0;
-const maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
+ fetch('https://jsonplaceholder.typicode.com/photos')
+  .then(response => response.json()) 
+  .then(response => {
+    const blogUnit = document.querySelector("#unit")
+    let clone = blogUnit.cloneNode(true)
+    for(key in response){
+      clone = blogUnit.cloneNode(true)
+      document.querySelector(".blog-contant-body").append(clone)
+      document.querySelector("#unit").dataset.id = `${response[key].id}`
+      document.querySelector("#unit").id = ""
+      document.querySelector(`[data-id="${response[key].id}"] > div > .blog-imag-desc`).innerText = `${response[key].title}`
+      document.querySelector(`[data-id="${response[key].id}"] > .blog-but`).innerText = `${response[key].id}`
+      document.querySelector(`[data-id="${response[key].id}"] > div > img`).src = `${response[key].url}`
+      document.querySelector(`[data-id="${response[key].id}"]`).classList.remove("no-display")
+    }
+    const buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
+    const buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
+    const widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
+    const arrayBlog = document.querySelectorAll('.blog-contant-body > div');
+    const numberPicturesScreen = 3;
+    let indexBlog = 0;
+    const maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
 
-buttonBlogRight.addEventListener('click',() => {
-  if(indexBlog < maxIndexBlog) {
-    indexBlog++
-  };
-  if (indexBlog > maxIndexBlog) {
-    indexBlog = maxIndexBlog
-  };
-    moveBlogRight(indexBlog)
-});
+    buttonBlogRight.addEventListener('click',() => {
+      if(indexBlog < maxIndexBlog) {
+        indexBlog++
+      };
+      if (indexBlog > maxIndexBlog) {
+        indexBlog = maxIndexBlog
+      };
+        moveBlogRight(indexBlog)
+    });
 
-buttonBlogLeft.addEventListener('click',() => {
-  if(indexBlog > 0) {
-    indexBlog--
-  };
-  if(indexBlog < 0) {
-    indexBlog = 0
-  };
-    moveBlogLeft(indexBlog);
-});
+    buttonBlogLeft.addEventListener('click',() => {
+      if(indexBlog > 0) {
+        indexBlog--
+      };
+      if(indexBlog < 0) {
+        indexBlog = 0
+      };
+        moveBlogLeft(indexBlog);
+    });
 
-function moveBlogRight(indexBlog) {
-  let transf = indexBlog * (widthBlog * 3);
-  document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
-};
+    function moveBlogRight(indexBlog) {
+      let transf = indexBlog * (widthBlog * 3);
+      document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+    };
 
-function moveBlogLeft(indexBlog) {
-  let transf = indexBlog * (widthBlog * 3);
-  document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
-};
+    function moveBlogLeft(indexBlog) {
+      let transf = indexBlog * (widthBlog * 3);
+      document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+    };
+  })
 
 const competencyButtonArray = document.querySelectorAll('.comp-button');
 competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
