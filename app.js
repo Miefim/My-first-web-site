@@ -33,59 +33,75 @@ contractButtonArray.forEach((button) => button.addEventListener('click', (e) => 
     };
  }));
 
- fetch('https://jsonplaceholder.typicode.com/photos')
-  .then(response => response.json()) 
-  .then(response => {
-    const blogUnit = document.querySelector("#unit")
-    let clone = blogUnit.cloneNode(true)
-    for(key in response){
-      clone = blogUnit.cloneNode(true)
-      document.querySelector(".blog-contant-body").append(clone)
-      document.querySelector("#unit").dataset.id = `${response[key].id}`
-      document.querySelector("#unit").id = ""
-      document.querySelector(`[data-id="${response[key].id}"] > div > .blog-imag-desc`).innerText = `${response[key].title}`
-      document.querySelector(`[data-id="${response[key].id}"] > .blog-but`).innerText = `${response[key].id}`
-      document.querySelector(`[data-id="${response[key].id}"] > div > img`).src = `${response[key].url}`
-      document.querySelector(`[data-id="${response[key].id}"]`).classList.remove("no-display")
-    }
-    const buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
-    const buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
-    const widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
-    const arrayBlog = document.querySelectorAll('.blog-contant-body > div');
-    const numberPicturesScreen = 3;
-    let indexBlog = 0;
-    const maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
+const myBlogSlider = {
+  async init() {
+    response = await fetch('https://jsonplaceholder.typicode.com/photos?albumId=1');
+    result = await response.json();
+    this.resultProcessing(result);
+    buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
+    buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
+    widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
+    arrayBlog = document.querySelectorAll('.blog-contant-body > div');
+    numberPicturesScreen = Math.trunc(window.innerWidth/widthBlog);
+    indexBlog = 0;
+    transf = 0;
+    maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
+    indexUp = this.indexUp.bind(this);
+    indexDown = this.indexDown.bind(this);
+    this.myEvent();
+  },
 
-    buttonBlogRight.addEventListener('click',() => {
-      if(indexBlog < maxIndexBlog) {
-        indexBlog++
-      };
-      if (indexBlog > maxIndexBlog) {
-        indexBlog = maxIndexBlog
-      };
-        moveBlogRight(indexBlog)
-    });
-
-    buttonBlogLeft.addEventListener('click',() => {
-      if(indexBlog > 0) {
-        indexBlog--
-      };
-      if(indexBlog < 0) {
-        indexBlog = 0
-      };
-        moveBlogLeft(indexBlog);
-    });
-
-    function moveBlogRight(indexBlog) {
-      let transf = indexBlog * (widthBlog * 3);
-      document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+  resultProcessing(result) {
+    blogUnit = document.querySelector("#unit");
+    for(key in result){
+      clone = blogUnit.cloneNode(true);
+      document.querySelector(".blog-contant-body").append(clone);
+      document.querySelector("#unit").dataset.id = `${result[key].id}`;
+      document.querySelector("#unit").id = "";
+      document.querySelector(`[data-id="${result[key].id}"] > div > .blog-imag-desc`).innerText = `${result[key].title}`;
+      document.querySelector(`[data-id="${result[key].id}"] > .blog-but`).innerText = `${result[key].id}`;
+      document.querySelector(`[data-id="${result[key].id}"] > div > img`).src = `${result[key].url}`;
+      document.querySelector(`[data-id="${result[key].id}"]`).classList.remove("no-display");
     };
+  },
 
-    function moveBlogLeft(indexBlog) {
-      let transf = indexBlog * (widthBlog * 3);
-      document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+  myEvent() {
+    buttonBlogRight.addEventListener('click', indexUp);
+    buttonBlogLeft.addEventListener('click', indexDown);
+  },
+
+  indexUp() {
+    if(indexBlog < maxIndexBlog) {
+      indexBlog++
     };
-  })
+    if (indexBlog > maxIndexBlog) {
+      indexBlog = maxIndexBlog
+    };
+      this.moveBlogRight(indexBlog)
+  },
+
+  indexDown() {
+    if(indexBlog > 0) {
+      indexBlog--
+    };
+    if(indexBlog < 0) {
+      indexBlog = 0
+    };
+      this.moveBlogLeft(indexBlog);
+  },
+
+  moveBlogRight(indexBlog) {
+    transf = indexBlog * (widthBlog * numberPicturesScreen);
+    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+  },
+
+  moveBlogLeft(indexBlog) {
+    transf = indexBlog * (widthBlog * numberPicturesScreen);
+    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+  }
+}
+
+myBlogSlider.init();
 
 const competencyButtonArray = document.querySelectorAll('.comp-button');
 competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
