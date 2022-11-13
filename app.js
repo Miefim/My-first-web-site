@@ -1,116 +1,258 @@
-const headerButtonPrev = document.querySelector(".left");
-const headerButtonNext = document.querySelector(".right");
-const listBanners = document.querySelectorAll("#banner-top > div");
-let index = 0;
+"use strict";
 
-headerButtonNext.addEventListener('click', () => {
-    index = (index + 1) % listBanners.length;
-    updateSelection();
-});
+const myHeaderSlider = {
 
-headerButtonPrev.addEventListener('click', () => {
-    index = (index + listBanners.length - 1) % listBanners.length; 
-    updateSelection();
-});  
+  headerButtonPrev: null,
+  headerButtonNext: null,
+  listBanners: null,
+  index: null,
+  active: null,
 
-function updateSelection() {
-    let active = document.querySelector('#banner-top > div.active');
-    if(active) {
-      active.classList.remove('active');
-      listBanners[index].classList.add('active');
-    };
-};
+  init() {
+    this.headerButtonPrev = document.querySelector(".left");
+    this.headerButtonNext = document.querySelector(".right");
+    this.listBanners = document.querySelectorAll("#banner-top > div");
+    this.index = 0;
+    this.myEvent();
+  },
 
-const contractButtonArray = document.querySelectorAll('.xz > div > .butt');
-contractButtonArray.forEach((button) => button.addEventListener('click', (e) => {
-  const idContract = e.currentTarget.dataset.butid;
-  const nowActiveContentBlock = document.querySelector(".video-contant > .active")
-    if(nowActiveContentBlock.dataset.contid !== idContract) {
-      nowActiveContentBlock.classList.remove('active');
+  myEvent() {
+    this.headerButtonNext.addEventListener('click', () => {
+      this.index = (this.index + 1) % this.listBanners.length;
+      this.updateSelection();
+    })
+    this.headerButtonPrev.addEventListener('click', () => {
+      this.index = (this.index + this.listBanners.length - 1) % this.listBanners.length; 
+      this.updateSelection();
+    }) 
+  },
+
+  updateSelection() {
+    this.active = document.querySelector('#banner-top > div.active');
+    if(this.active) {
+      this.active.classList.remove('active');
+      this.listBanners[this.index].classList.add('active');
+    }
+  }
+}
+
+myHeaderSlider.init();
+
+const myContractAnimation = {
+
+  contractButtonArray: null,
+  changeContentVar: null,
+  id: null,
+  nowActiveContentBlock: null,
+
+  init() {
+    this.contractButtonArray = document.querySelectorAll('.xz > div > .butt');
+    this.changeContentVar = this.changeContent.bind(this)    
+    this.contractButtonArray.forEach((button) => button.addEventListener('click', this.changeContentVar))
+  },
+  
+  changeContent() {
+    this.id = event.currentTarget.dataset.butid;
+    this.nowActiveContentBlock = document.querySelector(".video-contant > .active");
+    if(this.nowActiveContentBlock.dataset.contid !== this.id) {
+      this.nowActiveContentBlock.classList.remove('active');
       document.querySelector('.xz > div > .active').classList.remove('active');
-      document.querySelector(`[data-butid="${idContract}"]`).classList.add('active');
-      document.querySelector(`[data-contid="${idContract}"]`).classList.add('active');
-    };
- }));
+      document.querySelector(`[data-butid="${this.id}"]`).classList.add('active');
+      document.querySelector(`[data-contid="${this.id}"]`).classList.add('active');
+    }
+  }
+}
+
+myContractAnimation.init();
+
+const myProjectSlider = {
+  
+  indexProject: 0,
+  tapeTransformation: 0,
+  mouseDown: 0,
+  swipeLength: 0,
+  galleryTape: document.querySelector('.gallery'),
+  imageArray: document.querySelectorAll('.gal'),
+  imageWidth: document.querySelector('.gal').clientWidth,
+  start: null,
+  move: null,
+  end: null,
+
+  myEvent () {
+    this.start = this.swipeStart.bind(this)
+    this.move = this.swipeMove.bind(this)
+    this.end = this.swipeEnd.bind(this)
+    this.galleryTape.addEventListener('mousedown', this.start)  
+    this.galleryTape.addEventListener('mouseup', this.end)
+  },
+
+  switchLeft () {
+    if(this.indexProject !== 0) {
+      this.indexProject--
+    }
+    this.tapeTransformation = this.indexProject * this.imageWidth
+    this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
+  },
+
+  switchRight () {
+    if(this.indexProject !== this.imageArray.length - 1) {
+      this.indexProject++
+     }
+     this.tapeTransformation = this.indexProject * this.imageWidth
+     this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
+  },
+
+  swipeStart () {
+    this.mouseDown = event.clientX
+    this.galleryTape.addEventListener('mousemove', this.move)
+  },
+
+  swipeMove () {
+    this.galleryTape.style.transition = 'none'
+    this.swipeShift = this.mouseDown - event.clientX  
+    if(this.indexProject === this.imageArray.length - 1) {
+      if(this.swipeShift > 0) {
+        this.swipeShift = Math.log(this.swipeShift)
+      }
+    }
+    else if(this.indexProject === 0) {
+      if(this.swipeShift < 0) {
+        this.swipeShift = -Math.log(Math.abs(this.swipeShift))
+      } 
+    }
+    this.galleryTape.style.transform = `translate3d(${-this.tapeTransformation - this.swipeShift}px, 0px, 0px)`
+  },
+
+  swipeEnd () {
+    this.galleryTape.removeEventListener('mousemove', this.move)
+    this.galleryTape.style.transition = '0.3s' 
+    this.swipeLength = this.mouseDown - event.clientX
+    if(this.swipeLength > 0) {
+      this.switchRight()       
+    }
+    else if (this.swipeLength < 0) { 
+      this.switchLeft()
+    } 
+  },
+}
+
+myProjectSlider.myEvent();
+
+const myCompetencyAnimation = {
+
+  competencyButtonArray: null,
+  myEventVar: null,
+  changeContentVar: null,
+  id: null,
+
+  init() {
+    this.changeContentVar = this.changeContent.bind(this);
+    this.myEventVar = this.myEvent.bind(this);
+    this.competencyButtonArray = document.querySelectorAll('.comp-button');
+    this.competencyButtonArray.forEach(this.myEventVar);
+  },
+ 
+  myEvent(button) {
+    button.addEventListener('mousemove', this.changeContentVar);
+  },
+
+  changeContent() {
+    this.id = event.currentTarget.dataset.butId;
+    if(document.querySelector('.comp-button1 > .active').dataset.contId !== this.id) {
+      document.querySelector('.comp-button1 > .active').classList.remove('active');
+      document.querySelector(`[data-cont-id="${this.id}"]`).classList.add('active');
+    }
+  }
+}
+
+myCompetencyAnimation.init();
 
 const myBlogSlider = {
+
+  response: null,
+  result: null,
+  buttonBlogRight: null,
+  buttonBlogLeft: null,
+  widthBlog: null,
+  arrayBlog: null,
+  numberPicturesScreen: null,
+  indexBlog: null,
+  transf: null,
+  maxIndexBlog: null,
+  indexUpVar: null,
+  indexDownVar: null,
+  blogUnit: null,
+  clone: null,
+  key: null,
+   
   async init() {
-    response = await fetch('https://jsonplaceholder.typicode.com/photos?albumId=1');
-    result = await response.json();
-    this.resultProcessing(result);
-    buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
-    buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
-    widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
-    arrayBlog = document.querySelectorAll('.blog-contant-body > div');
-    numberPicturesScreen = Math.trunc(window.innerWidth/widthBlog);
-    indexBlog = 0;
-    transf = 0;
-    maxIndexBlog = (arrayBlog.length - numberPicturesScreen)/numberPicturesScreen;
-    indexUp = this.indexUp.bind(this);
-    indexDown = this.indexDown.bind(this);
+    this.response = await fetch('https://jsonplaceholder.typicode.com/photos?albumId=1');
+    this.result = await this.response.json();
+    this.resultProcessing(this.result);
+    this.buttonBlogRight = document.querySelector(".blog-contant-header-buttons-right");
+    this.buttonBlogLeft = document.querySelector(".blog-contant-header-buttons-left");
+    this.widthBlog = document.querySelector(".blog-contant-body-unit").clientWidth;
+    this.arrayBlog = document.querySelectorAll('.blog-contant-body > div');
+    this.numberPicturesScreen = Math.trunc(window.innerWidth/this.widthBlog);
+    this.indexBlog = 0;
+    this.transf = 0;
+    this.maxIndexBlog = (this.arrayBlog.length - this.numberPicturesScreen)/this.numberPicturesScreen;
+    this.indexUpVar = this.indexUp.bind(this);
+    this.indexDownVar = this.indexDown.bind(this);
     this.myEvent();
   },
 
   resultProcessing(result) {
-    blogUnit = document.querySelector("#unit");
-    for(key in result){
-      clone = blogUnit.cloneNode(true);
-      document.querySelector(".blog-contant-body").append(clone);
-      document.querySelector("#unit").dataset.id = `${result[key].id}`;
+    this.blogUnit = document.querySelector("#unit");
+    for(this.key in result) {
+      this.clone = this.blogUnit.cloneNode(true);
+      document.querySelector(".blog-contant-body").append(this.clone);
+      document.querySelector("#unit").dataset.id = `${result[this.key].id}`;
       document.querySelector("#unit").id = "";
-      document.querySelector(`[data-id="${result[key].id}"] > div > .blog-imag-desc`).innerText = `${result[key].title}`;
-      document.querySelector(`[data-id="${result[key].id}"] > .blog-but`).innerText = `${result[key].id}`;
-      document.querySelector(`[data-id="${result[key].id}"] > div > img`).src = `${result[key].url}`;
-      document.querySelector(`[data-id="${result[key].id}"]`).classList.remove("no-display");
-    };
+      document.querySelector(`[data-id="${result[this.key].id}"] > div > .blog-imag-desc`).innerText = `${result[this.key].title}`;
+      document.querySelector(`[data-id="${result[this.key].id}"] > .blog-but`).innerText = `${result[this.key].id}`;
+      document.querySelector(`[data-id="${result[this.key].id}"] > div > img`).src = `${result[this.key].url}`;
+      document.querySelector(`[data-id="${result[this.key].id}"]`).classList.remove("no-display");
+    }
   },
 
   myEvent() {
-    buttonBlogRight.addEventListener('click', indexUp);
-    buttonBlogLeft.addEventListener('click', indexDown);
+    this.buttonBlogRight.addEventListener('click', this.indexUpVar);
+    this.buttonBlogLeft.addEventListener('click', this.indexDownVar);
   },
 
   indexUp() {
-    if(indexBlog < maxIndexBlog) {
-      indexBlog++
-    };
-    if (indexBlog > maxIndexBlog) {
-      indexBlog = maxIndexBlog
-    };
-      this.moveBlogRight(indexBlog)
+    if(this.indexBlog < this.maxIndexBlog) {
+      this.indexBlog++;
+    }
+    if (this.indexBlog > this.maxIndexBlog) {
+      this.indexBlog = this.maxIndexBlog;
+    }
+      this.moveBlogRight(this.indexBlog);
   },
 
   indexDown() {
-    if(indexBlog > 0) {
-      indexBlog--
-    };
-    if(indexBlog < 0) {
-      indexBlog = 0
-    };
-      this.moveBlogLeft(indexBlog);
+    if(this.indexBlog > 0) {
+      this.indexBlog--;
+    }
+    if(this.indexBlog < 0) {
+      this.indexBlog = 0;
+    }
+      this.moveBlogLeft(this.indexBlog);
   },
 
   moveBlogRight(indexBlog) {
-    transf = indexBlog * (widthBlog * numberPicturesScreen);
-    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+    this.transf = indexBlog * (this.widthBlog * this.numberPicturesScreen);
+    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${this.transf}px, 0px, 0px)`;
   },
 
   moveBlogLeft(indexBlog) {
-    transf = indexBlog * (widthBlog * numberPicturesScreen);
-    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${transf}px, 0px, 0px)`;
+    this.transf = indexBlog * (this.widthBlog * this.numberPicturesScreen);
+    document.querySelector(".blog-contant-body").style.transform = `translate3d(-${this.transf}px, 0px, 0px)`;
   }
 }
 
 myBlogSlider.init();
-
-const competencyButtonArray = document.querySelectorAll('.comp-button');
-competencyButtonArray.forEach((button) => button.addEventListener('mousemove', (e) => {
-  const id = e.currentTarget.dataset.butId;
-   if(document.querySelector('.comp-button1 > .active').dataset.contId !== id) {
-    document.querySelector('.comp-button1 > .active').classList.remove('active');
-    document.querySelector(`[data-cont-id="${id}"]`).classList.add('active');
-   };
-}));
 
 const myFeedbackForm = {
 
@@ -128,7 +270,8 @@ const myFeedbackForm = {
     callbackContentOrder: document.querySelector(".ok"),
     body: document.querySelector("body"),
     inputNumber: document.querySelector('[data-inputid = "number"]'),
-    inputName: document.querySelector('[data-inputid = "name"]')
+    inputName: document.querySelector('[data-inputid = "name"]'),
+    index: null
   },
 
   setEvents () {
@@ -150,13 +293,13 @@ const myFeedbackForm = {
       this.myVariable.callbackForm.classList.add("active-feedback");
       this.myVariable.callbackContentInput.classList.add("active-feedback");
       this.myVariable.body.classList.add("no-scroll");
-    });
+    })
 
     this.myVariable.closeButton.addEventListener("click", () => {
       this.myVariable.callbackForm.classList.remove("active-feedback");
       this.myVariable.body.classList.remove("no-scroll");
       this.myVariable.callbackContentOrder.classList.remove("active-feedback");
-    });
+    })
 
     this.myVariable.orderButton.addEventListener("click", () => {     
       if(this.myVariable.flagNumber === 0 && this.myVariable.flagName === 0) {
@@ -175,14 +318,14 @@ const myFeedbackForm = {
       } 
       else if (!this.myVariable.inputName.value) {
         this.myVariable.warningName.innerText = "Введите свое имя";
-      }; 
-    });
+      }
+    })
 
     this.myVariable.closeButton2.addEventListener("click", () => {
       this.myVariable.callbackForm.classList.remove("active-feedback");
       this.myVariable.body.classList.remove("no-scroll");
       this.myVariable.callbackContentOrder.classList.remove("active-feedback");
-    });
+    })
   },
 
   numberCheck (number) {
@@ -200,18 +343,18 @@ const myFeedbackForm = {
         this.myVariable.flagNumber = 1;
       }
       else {
-        for(index in number) { 
-          if(number[index] >= 0 || number[index] === "+") {
+        for(this.myVariable.index in number) { 
+          if(number[this.myVariable.index] >= 0 || number[this.myVariable.index] === "+") {
             this.myVariable.flagNumber = 0;
             this.myVariable.warningNumber.innerText = "";
           }
           else {
             this.myVariable.warningNumber.innerText = "В данном поле должны быть только цифры";
             this.myVariable.flagNumber = 1;
-          };
-        };
-      };
-    };
+          }
+        }
+      }
+    }
   },
   
   nameCheck (name) {
@@ -230,78 +373,8 @@ const myFeedbackForm = {
     else {
       this.myVariable.flagName = 0;
       this.myVariable.warningName.innerText = "";
-    };
-  },
-};
-
-myFeedbackForm.setEvents();
-
-const myProjectSlider = {
-
-  indexProject: 0,
-  tapeTransformation: 0,
-  mouseDown: 0,
-  swipeLength: 0,
-  galleryTape: document.querySelector('.gallery'),
-  imageArray: document.querySelectorAll('.gal'),
-  imageWidth: document.querySelector('.gal').clientWidth,
-
-  myEvent () {
-    start = myProjectSlider.swipeStart.bind(myProjectSlider)
-    move = myProjectSlider.swipeMove.bind(myProjectSlider)
-    end = myProjectSlider.swipeEnd.bind(myProjectSlider)
-    this.galleryTape.addEventListener('mousedown', start)  
-    this.galleryTape.addEventListener('mouseup', end)
-  },
-
-  switchLeft () {
-    if(this.indexProject !== 0) {
-      this.indexProject--
     }
-    this.tapeTransformation = this.indexProject * this.imageWidth
-    this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
-  },
-
-  switchRight () {
-    if(this.indexProject !== this.imageArray.length - 1) {
-      this.indexProject++
-     }
-     this.tapeTransformation = this.indexProject * this.imageWidth
-     this.galleryTape.style.transform = `translate3d(-${this.tapeTransformation}px, 0px, 0px)`
-  },
-
-  swipeStart () {
-    this.mouseDown = event.clientX
-    this.galleryTape.addEventListener('mousemove', move)
-  },
-
-  swipeMove () {
-    this.galleryTape.style.transition = 'none'
-    this.swipeShift = this.mouseDown - event.clientX  
-    if(this.indexProject === this.imageArray.length - 1) {
-      if(this.swipeShift > 0) {
-        this.swipeShift = Math.log(this.swipeShift)
-      }
-    }
-    else if(this.indexProject === 0) {
-      if(this.swipeShift < 0) {
-        this.swipeShift = -Math.log(Math.abs(this.swipeShift))
-      } 
-    }
-    this.galleryTape.style.transform = `translate3d(${-this.tapeTransformation - this.swipeShift}px, 0px, 0px)`
-  },
-
-  swipeEnd () {
-    this.galleryTape.removeEventListener('mousemove', move)
-    this.galleryTape.style.transition = '0.3s' 
-    this.swipeLength = this.mouseDown - event.clientX
-    if(this.swipeLength > 0) {
-      this.switchRight()       
-    }
-    else if (this.swipeLength < 0) { 
-      this.switchLeft()
-    } 
   },
 }
 
-myProjectSlider.myEvent()
+myFeedbackForm.setEvents();
