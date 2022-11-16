@@ -1216,3 +1216,12 @@ div[data-bannerid="3"] {
     color: #d11a14;
     font-weight: 500;
 }
+
+.no-display {
+    display: none;
+}
+
+.blog-image {
+    max-width: 380px;
+    max-height: 200px;
+}
